@@ -1,0 +1,54 @@
+import React, {useState} from 'react';
+//import FetchData from './FetchData';
+import DataCards from './DataCards';
+import Axios from 'axios';
+
+
+
+function PostForm() {
+    const url =""
+    const [data, setData] = useState({
+        name: ""
+    })
+
+    function submit(e){
+        e.preventDefault();
+        Axios.post(url,{
+            name: data.name
+        })
+        .then(res=>{
+            console.log(res.data)
+        })
+    }
+
+    function handle(e){
+        const newdata={...data}
+        newdata[e.target.id] = e.target.value
+        setData(newdata)
+        console.log(newdata)
+    }
+  return (
+    <div id="Forms" className="forms">
+        <div className="container">
+            <form onSubmit={(e)=>submit(e)}>
+                <div className="form_box">
+                    <div className="row">
+                        <h1>Atlas smart search</h1>
+                        <textarea onChange={(e)=>handle(e)} className="sku_textarea" id="name" value={data.name} placeholder="PASTE END USER DESCRIPTION AS PROMPT" type="text"></textarea>
+                    </div>
+                </div>
+                    <button className="btn-submit">Submit</button>            
+            </form>  
+
+            <div className="output_box">
+                
+                    <DataCards/> 
+                   
+            </div>   
+
+        </div>
+    </div>
+  )
+}
+
+export default PostForm

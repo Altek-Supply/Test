@@ -1,0 +1,27 @@
+/******** CSS FOR LOADING ANIMATIONS *********/
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+  }
+  
+  .loading-animation {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    border-top-color: #315dff;
+    animation-name: spin;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    margin-bottom: 17.5rem;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

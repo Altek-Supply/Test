@@ -1,0 +1,208 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(255, 255, 255);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-container {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+.forms{
+  background: url(bg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: rgb(144, 144, 144);
+  margin-top: 75px;
+  padding: 1rem;
+  min-height: 90.4vh;
+  border-radius: 400px 0 0 0;
+}
+
+.forms h1{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  text-shadow: 0 0 1px #ffffff, 0 0 1px #ffffff;
+  letter-spacing: 5px;
+  color: rgb(0,61,165,255);
+  font-size: 3.5rem;
+}
+
+.sku_textarea{
+  height: 10rem;
+  width: 40rem;
+}
+
+.sku_textarea::placeholder {
+  padding: 65px 0 0 185px;
+}
+
+.btn-submit{
+  background-color: rgb(54, 96, 221);
+  height: 3rem;
+  width: 12.5rem;
+  text-align: center;
+  border: 1px solid var(--primary-white);
+  color: rgb(233, 233, 233);
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+  margin-top: 3rem;
+  transition: .5s ease-in-out;
+  text-decoration: none;
+}
+
+.btn-submit:hover
+{
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 69, 250);
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+/*.output{                  Declared tag inside of FetchData, commented to disable cause not being called in app or any other component
+  text-align: justify;
+  text-align: center;
+  padding-top: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  padding-left: 53.5rem;
+}*/
+
+
+
+
+/************* For Data Cards ************/
+
+.output_box{
+  background-color: rgb(215, 215, 215);
+  opacity: 0.95;
+  height: 80%;
+  width: 132rem;
+  margin-top: 8rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-items: center;
+  text-align: justify;
+  font-stretch: semi-expanded;
+  animation: linear;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.box {
+  width: 40rem;
+  padding: 10px;
+  margin: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-table;
+}
+
+.button-container button {
+  margin-right: 10rem; /* Add margin to the right of the first button */
+  height: 3rem;
+  width: 8rem;
+  text-align: center;
+  border: 1px solid var(--primary-white);
+  background-color: #ccc;
+  color: rgb(7, 7, 7);
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+  margin-top: 3rem;
+  transition: .5s ease-in-out;
+  text-decoration: none;
+}
+
+.button-container button:last-child {
+  margin-right: 0; /* Remove margin from the last button to avoid unnecessary space */
+}
+
+.button-container button:hover
+{
+  background-color: rgb(0, 144, 72);
+  color: #ffffff;
+}
+
+.data-cards {
+  /*display: flex;
+  flex-wrap: wrap;
+  margin-left: 10rem;
+  gap: 20px;*/
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.data-card {
+  /*width: 300px;
+  padding: 20px;
+  border: 1px solid #313131;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;*/
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: -10px;
+  margin-bottom: 10px;
+}
+
+.data-card:hover {
+  background-color: rgb(68, 126, 243, 0.519);
+}
+
+.data-card.selected {
+  background-color: rgba(47, 123, 244);
+}
+
+.data-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.data-card p {
+  margin: 0;
+} 
+
