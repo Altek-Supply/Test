@@ -6,7 +6,7 @@ import '../Loading.css';
 
 
 function PostForm() {
-  const endpointUrl = 'http://smartsearch.e4968d402781421d8c72.westus2.aksapp.io/api/smartsearch'; // Endpoint URL
+  const endpointUrl = 'https://20.230.148.143/api/smartsearch'; // Endpoint URL
   const [loading, setLoading] = useState(false); // Defining loading state as false on initialization
   const [data, setData] = useState({
     names: []
