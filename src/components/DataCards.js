@@ -18,6 +18,7 @@ const DataBox = ({ name, responseData }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [options, setOptions] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     if (responseData) {
@@ -32,20 +33,39 @@ const DataBox = ({ name, responseData }) => {
 
   const handleFormSubmit = () => {
     setSubmitted(true);
+    setShowAll(true); // Display all data after submission
+  };
+
+  const handleToggleShowAll = () => {
+    setShowAll(!showAll);
   };
 
   return (
     <div className="box">
       <h2>{name}</h2>
+      <div className="button-container">
+      <button onClick={handleToggleShowAll}>
+            {showAll ? 'Show Less' : 'Show All'}
+          </button>
+      </div>
       <div className="data-cards">
-        {options.map((item, index) => (
+        {showAll ? options.map((item, index) => (
           <DataCard
             key={index}
             item={item}
             selectedItem={selectedItem}
             onItemClick={handleItemClick}
+            showAll={showAll}
           />
-        ))}
+        ))
+      : options.slice(0,5).map((item, index) => (
+        <DataCard
+          key={index}
+          item={item}
+          selectedItem={selectedItem}
+          onItemClick={handleItemClick}
+          showAll={showAll}/>
+          ))}
       </div>
       <div className="button-container">
         <button onClick={handleFormSubmit}>Submit</button>
