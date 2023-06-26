@@ -18,7 +18,7 @@ function PostForm() {
     setLoading(true); // Defining the loading state as true as API is fetching response
     const searchString = encodeURIComponent(data.names.join('*'));
 
-    const fullUrl = `${endpointUrl}?txt="${searchString}"`; //URL Reconstruction
+    const fullUrl = `${endpointUrl}?txt=${searchString}`; //URL Reconstruction
 
     fetch(fullUrl)
       .then((response) => response.json())
