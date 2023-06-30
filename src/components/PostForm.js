@@ -4,6 +4,14 @@ import Loading from './Loading';
 import logoImage from '../logo.png';
 import '../Loading.css';
 
+    // Function to split an array into chunks of a specified size
+    function chunkArray(array, size) {
+      const chunks = [];
+      for (let i = 0; i < array.length; i += size) { // Array.length comes from number of user descriptions i.e data.names
+        chunks.push(array.slice(i, i + size)); /*In case of 100 descriptions/data.names 6 chunks created as multiples of 15, remaining 10 will be stored as final chunk cause .slice built in function handles out of bound array exception*/
+      }
+      return chunks; 
+    }
 
 function PostForm() {
   const endpointUrl = 'https://20.230.148.143/api/smartsearch'; // Endpoint URL
@@ -15,23 +23,44 @@ function PostForm() {
 
   function submit(e) {
     e.preventDefault();
-    setLoading(true); // Defining the loading state as true as API is fetching response
-    const searchString = encodeURIComponent(data.names.join('*'));
+  setLoading(true);
+  const searchChunks = chunkArray(data.names, 15); // Split data.names into chunks of 15 using chunkArray function  
 
-    const fullUrl = `${endpointUrl}?txt=${searchString}`; //URL Reconstruction
+  const requests = searchChunks.map((chunk) => {
+    const searchString = encodeURIComponent(chunk.join('*'));
+    const chunkUrl = `${endpointUrl}?txt=${searchString}`;
 
-    fetch(fullUrl)
+    return fetch(chunkUrl)
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setResponseData(data);
-        setLoading(false);
-      })
       .catch((error) => {
         console.log(error);
-        setResponseData(null);
-        setLoading(false); // Setting the loading state to false once response is recieved 
+        return null;
       });
+  });
+
+// Function to merge individual response objects into a single object
+function mergeResponses(responses) {
+  const mergedData = {};
+
+  responses.forEach((response) => {
+    Object.entries(response).forEach(([searchDescription, items]) => {
+      if (!mergedData[searchDescription]) {
+        mergedData[searchDescription] = items;
+      } else {
+        mergedData[searchDescription].push(...items);
+      }
+    });
+  });
+  return mergedData;
+}
+
+  Promise.all(requests) //Promises are asynchronous and wait for all request call to be answered, in our case of 100 descriptions the requests/endpoint calls would be 7.
+    .then((responses) => {
+      const mergedData = mergeResponses(responses); // Merge the individual responses
+      console.log(mergedData);
+      setResponseData(mergedData);
+      setLoading(false);
+    });
   }
 
   function handle(e) {

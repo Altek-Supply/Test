@@ -58,7 +58,7 @@ const DataCard = ({ item, selectedItem, onItemClick }) => {
             showAll={showAll}
           />
         ))
-      : options.slice(0,5).map((item, index) => (
+      : options.slice(0,2).map((item, index) => (
         <DataCard
           key={index}
           item={item}
