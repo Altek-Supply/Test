@@ -26,14 +26,15 @@ const DataCard = ({ item, selectedItem, onItemClick }) => {
     }
   }, [responseData]);
 
-  // Handle click on a data card
+  // Function to handle user selections in DataCard component
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
 
   const handleFormSubmit = () => {
     setSubmitted(true);
-    setShowAll(true); // Display all data after submission
+    setShowAll(false); // Display all data after submission or not
+    console.log('Selected Data Card:', selectedItem)
   };
 
   const handleToggleShowAll = () => {

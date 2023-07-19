@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import DataCards from './DataCards';
 import Loading from './Loading';
 import logoImage from '../logo.png';
+import {v4 as uuidv4} from 'uuid';
 import '../Loading.css';
 
     // Function to split an array into chunks of a specified size
@@ -14,12 +15,20 @@ import '../Loading.css';
     }
 
 function PostForm() {
+  const sessionID = localStorage.getItem('sessionID') || uuidv4();
   const endpointUrl = 'https://20.230.148.143/api/smartsearch'; // Endpoint URL
   const [loading, setLoading] = useState(false); // Defining loading state as false on initialization
   const [data, setData] = useState({
     names: []
   });
   const [responseData, setResponseData] = useState(null);
+
+  localStorage.getItem('sessionID', sessionID);
+
+  useEffect(()=>{
+    localStorage.setItem('sessionID',sessionID)
+    console.log('Session ID:', sessionID);
+  },[sessionID])
 
   function submit(e) {
     e.preventDefault();
@@ -28,7 +37,7 @@ function PostForm() {
 
   const requests = searchChunks.map((chunk) => {
     const searchString = encodeURIComponent(chunk.join('*'));
-    const chunkUrl = `${endpointUrl}?txt=${searchString}`;
+    const chunkUrl = `${endpointUrl}?sessionID=${sessionID}&txt=${searchString}`;
 
     return fetch(chunkUrl)
       .then((response) => response.json())
