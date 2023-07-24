@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import ImportFile from './ImportFile';
 
 // Component for an individual data card
-const DataCard = ({ item, selectedItem, onItemClick }) => {
+const DataCard = ({item, selectedItem, onItemClick }) => {
   return (
     <div
       className={`data-card ${selectedItem === item ? 'selected' : ''}`}
@@ -14,7 +15,7 @@ const DataCard = ({ item, selectedItem, onItemClick }) => {
 };
 
 // Component for a box containing data cards
-  const DataBox = ({ name, responseData }) => {
+  const DataBox = ({name, responseData, onItemClick, boxIndex }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [options, setOptions] = useState([]);
   const [submitted, setSubmitted] = useState(false);
@@ -28,13 +29,14 @@ const DataCard = ({ item, selectedItem, onItemClick }) => {
 
   // Function to handle user selections in DataCard component
   const handleItemClick = (item) => {
-    setSelectedItem(item);
+    console.log('Clicked on item:', item[0], item[1], 'in', name);
+    setSelectedItem(item, name);
+    onItemClick(item, name, boxIndex);
   };
 
   const handleFormSubmit = () => {
     setSubmitted(true);
     setShowAll(false); // Display all data after submission or not
-    console.log('Selected Data Card:', selectedItem)
   };
 
   const handleToggleShowAll = () => {
@@ -70,7 +72,6 @@ const DataCard = ({ item, selectedItem, onItemClick }) => {
       </div>
       <div className="button-container">
         <button onClick={handleFormSubmit}>Submit</button>
-        <button>Revert</button>
       </div>
       {submitted && <p>Thank you for your submission.</p>}
     </div>
@@ -79,11 +80,33 @@ const DataCard = ({ item, selectedItem, onItemClick }) => {
 
 // Top-level component for displaying multiple data boxes
 const DataCards = ({ responseData }) => {
+
+  const [selectedData, setSelectedData] = useState([]);
+
+  const handleItemClick = (item, name, boxIndex) => {
+    setSelectedData((prevSelectedData) => {
+      const updatedData = [...prevSelectedData];
+      updatedData[boxIndex] = { item, name };
+      return updatedData;
+    });
+  };
+
+  //console.log('Selected Data:', selectedData);
+
+  const dataEntries = Object.entries(responseData);
+
   return (
     <div className="boxes">
-      {Object.entries(responseData).map(([name, dataItems]) => (
-        <DataBox key={name} name={name} responseData={dataItems} />
+      {dataEntries.map(([name, dataItems], index) => (
+        <DataBox
+          key={name}
+          name={name}
+          responseData={dataItems}
+          onItemClick={(item, name) => handleItemClick(item, name, index)}
+        />
       ))}
+      {/* Render the Download Button and pass the selectedData */}
+      <ImportFile selectedData={selectedData} />
     </div>
   );
 };
