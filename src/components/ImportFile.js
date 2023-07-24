@@ -9,7 +9,7 @@ const ImportFile = ({ selectedData }) => {
     // Format the selectedData into the appropriate format (array of arrays)
     const sheetData = selectedData.map(({ item, name }) => [ name, item[0], item[1] ]);
     // Create a new worksheet
-    const worksheet = XLSX.utils.aoa_to_sheet([['Searched', 'Tag No', 'Description'], ...sheetData]);
+    const worksheet = XLSX.utils.aoa_to_sheet([['End User Description', 'SAP Item Number', 'Product Description'], ...sheetData]);
     // Add the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'SelectedData');
     // Convert the workbook to a binary string
