@@ -1,0 +1,36 @@
+/******** CSS FOR INSTRUCTIONS MODAL *********/
+
+/* Style for the modal overlay */
+/* Style for the button to open the modal */
+.open-modal-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 2rem;
+  }
+
+.ReactModal__Overlay {
+    /* Center the modal overlay in the entire screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);/* Adjust the background color and transparency as needed */
+  }
+  
+  /* Style for the modal content */
+  .ReactModal__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #eaeaea;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    /* Add any other custom styles you want for the modal content */
+  }

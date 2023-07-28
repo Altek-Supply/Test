@@ -3,6 +3,7 @@ import DataCards from './DataCards';
 import Loading from './Loading';
 import logoImage from '../logo.png';
 import {v4 as uuidv4} from 'uuid';
+import InstructionsModal from './InstructionsModal';
 import '../Loading.css';
 
     // Function to split an array into chunks of a specified size
@@ -98,8 +99,10 @@ function mergeResponses(responses) {
               ></textarea>
             </div>
           </div>
-          <button className="btn-submit">Submit</button>
-        </form>
+          <button className="btn-submit">Submit</button>  
+        </form>   
+
+        <InstructionsModal />     
 
         <div className="output_box">
             {loading && <Loading />}
