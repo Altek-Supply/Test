@@ -24,7 +24,7 @@ function PostForm() {
   });
   const [responseData, setResponseData] = useState(null);
 
-  localStorage.getItem('sessionID', sessionID);
+  //localStorage.getItem('sessionID', sessionID);
 
   useEffect(()=>{
     localStorage.setItem('sessionID',sessionID)
