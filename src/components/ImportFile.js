@@ -15,10 +15,12 @@ const ImportFile = ({ selectedData, manualInputs }) => {
       name,
       item ? item[0] : manualInput?.SAP || '',
       item ? item[1] : manualInput?.ProductDescription || '',
+      manualInputs[name]?.AlternateSAP || '',  // Use "AlternateSAP"
+      manualInputs[name]?.AlternateProductDescription || '',  // Use "AlternateProductDescription"
     ]);
 
     // Create a new worksheet
-    const worksheet = XLSX.utils.aoa_to_sheet([['End User Description', 'SAP Item Number', 'Product Description'], ...sheetData]);
+    const worksheet = XLSX.utils.aoa_to_sheet([['End User Description', 'SAP Item Number', 'Product Description', 'Alternate SAP', 'Alternate Product Description'], ...sheetData]);
     // Add the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'SelectedData');
     // Convert the workbook to a binary string

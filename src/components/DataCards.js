@@ -19,6 +19,9 @@ const DataBox = ({ name, responseData, onItemClick, boxIndex, manualInput, onMan
   const [selectedItem, setSelectedItem] = useState(null);
   const [options, setOptions] = useState([]);
   const [showAll, setShowAll] = useState(false);
+  const [alternateSAP, setAlternateSAP] = useState('');
+  const [alternateProductDescription, setAlternateProductDescription] = useState('');
+
 
   useEffect(() => {
     if (responseData) {
@@ -29,7 +32,7 @@ const DataBox = ({ name, responseData, onItemClick, boxIndex, manualInput, onMan
   // Function to handle user selections in DataCard component
   const handleItemClick = (item) => {
     console.log('Clicked on item:', item[0], item[1], 'in', name);
-    setSelectedItem(item, name);
+    setSelectedItem(item);
     onItemClick(item, name, boxIndex);
   };
 
@@ -37,14 +40,23 @@ const DataBox = ({ name, responseData, onItemClick, boxIndex, manualInput, onMan
     setSelectedItem(null); // Reset the selected item
     onManualInputChange('SAP', ''); // Clear manualInput.SAP
     onManualInputChange('ProductDescription', ''); // Clear manualInput.ProductDescription
+    onManualInputChange('AlternateSAP',''); // Reset alternateSAP
+    onManualInputChange('AlternateProductDescription',''); // Reset alternateProductDescription
+    setAlternateSAP(''); // Reset alternateSAP
+    setAlternateProductDescription(''); // Reset alternateProductDescription
     onItemClick(null, name, boxIndex); // Pass null as the selectedItem
   };
 
-  // Function to handle manual input change for "SAP Item Number" and "Product Description"
+  // Function to handle manual input change for "Alternate SAP Item Number" and "Alternate Product Description"
   const handleManualInputChange = (inputType, value) => {
-    onManualInputChange(inputType, value); // Pass the inputType and value directly without 'name'
+    onManualInputChange(inputType, value);
+    if (inputType === 'AlternateSAP') {
+      setAlternateSAP(value); // Update alternateSAP state
+    } else if (inputType === 'AlternateProductDescription') {
+      setAlternateProductDescription(value); // Update alternateProductDescription state
+    } 
   };
-
+  
   const handleToggleShowAll = () => {
     setShowAll(!showAll);
   };
@@ -94,6 +106,27 @@ const DataBox = ({ name, responseData, onItemClick, boxIndex, manualInput, onMan
               value={(typeof manualInput === 'object' && manualInput.ProductDescription) || ''}
               onChange={(e) => handleManualInputChange('ProductDescription', e.target.value)}
               placeholder="Enter Product Description..."
+            />
+            <br/>
+            <p><b>Please enter alternate SKU.</b></p>
+            <br/>
+            <input
+              type="text"
+              value={alternateSAP}
+              onChange={(e) => {
+                setAlternateSAP(e.target.value);
+                handleManualInputChange('AlternateSAP', e.target.value); // Update manualInputs
+              }}
+              placeholder="Enter Alternate SAP..."
+            />
+            <input
+              type="text"
+              value={alternateProductDescription}
+              onChange={(e) => {
+                setAlternateProductDescription(e.target.value);
+                handleManualInputChange('AlternateProductDescription', e.target.value); // Update manualInputs
+              }}
+              placeholder="Enter Alternate Product Description..."
             />
           </>
         )}
@@ -165,6 +198,8 @@ const DataCards = ({ responseData }) => {
         item={selectedData.find((data) => data.name === name)?.item} // Pass the selected item for each databox
         manualInput={selectedData.find((data) => data.name === name)?.manualInput} // Pass manual input for each databox
         onManualInputChange={(field, input) => handleManualInput(name, field, input)} // Handle manual input change
+        alternateSAP={manualInputs[name]?.AlternateSAP || ''}  // Use "AlternateSAP"
+        alternateProductDescription={manualInputs[name]?.AlternateProductDescription || ''}  // Use "AlternateProductDescription"
      />
       ))}
       {/* Render the ImportFile component and pass the selectedData */}
